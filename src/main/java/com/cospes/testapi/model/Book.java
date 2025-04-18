@@ -20,6 +20,8 @@ public class Book {
         this.autore = autore;
     }
 
+    public long getId(){return id;}
+
     public String getAutore() {
         return autore;
     }

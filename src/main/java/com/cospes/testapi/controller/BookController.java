@@ -2,7 +2,7 @@ package com.cospes.testapi.controller;
 
 import com.cospes.testapi.model.Book;
 import com.cospes.testapi.repository.BookRepository;
-import org.springanche a me da erroframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,25 +32,19 @@ public class BookController {
         return bookRepository.findById(id).orElse(null);
     }
 
+    @PutMapping("/{id}")
     public Book updateBook (@PathVariable Long id, @RequestBody Book updateBook){
-        return bookRepository.findById(id).map( book -->
+        return bookRepository.findById(id).map( book ->
         {
              book.setTitolo(updateBook.getTitolo());
              book.setAutore(updateBook.getAutore());
              return bookRepository.save(book);
         }).orElse(null);
 
-        //versione alternativa
-        Book updateBook2 = bookRepository.findById(id);
 
-        if(bookFromDB != null){
-            bookFromDB.setAutore(updateBook.getAutore());
-            bookFromDB.setTitolo(updateBook.getTitolo());
-
-            bookRepository.save(bookFromDB);
-        }
-        else{
-            return null;
-        }
+    }
+    @DeleteMapping("/{id}")
+    public void delete (@PathVariable Long id){
+        bookRepository.deleteById(id);
     }
 }
